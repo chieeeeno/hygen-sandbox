@@ -3,6 +3,10 @@
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
+  "scripts": {
+    "new:component": "hygen new component",
+    "new:page": "hygen new page"
+  },
   "devDependencies": {
     "hygen": "^6.2.11",
     "prettier": "^2.8.0"
