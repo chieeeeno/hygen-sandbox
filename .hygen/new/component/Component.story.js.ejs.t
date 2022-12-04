@@ -1,3 +1,3 @@
 ---
-to: '<%= isCreateStories ? `${absPath}/${componentName}.story.${ext}` : null %>'
+to: '<%= isCreateStorybook ? `${absPath}/${componentName}.story.${ext}` : null %>'
 ---

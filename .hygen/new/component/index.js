@@ -24,7 +24,7 @@ module.exports = {
       },
       {
         type: 'toggle',
-        name: 'isCreateStories',
+        name: 'isCreateStorybook',
         message: 'Storybookファイルを作成しますか？',
         enabled: 'Yes',
         disabled: 'No',
