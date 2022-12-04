@@ -3,21 +3,30 @@ module.exports = {
     const questions = [
       {
         type: 'input',
-        name: 'page_name',
-        message: 'What is the name of page?'
+        name: 'dir',
+        message:
+          'どのディレクトリに作成しますか？（pages配下のディレクトリを指定してください）'
       },
       {
         type: 'input',
-        name: 'dir',
-        message: 'Where is the directory?',
+        name: 'fileName',
+        message: 'ファイル名は何ですか？'
       },
+      {
+        type: 'toggle',
+        name: 'confirm',
+        message(answer) {
+          return `このディレクトリにコンポーネントを作成しますか？（/pages/${answer.answers.dir}/${answer.answers.fileName}.vue}）`
+        },
+        enabled: 'Yes',
+        disabled: 'No',
+        initial: 'Yes'
+      }
     ]
-    return inquirer
-      .prompt(questions)
-      .then(answers => {
-        const { dir } = answers
-        const abs_path = `src/pages/${dir}`
-        return { ...answers, abs_path }
-      })
+    return inquirer.prompt(questions).then((answers) => {
+      const { dir } = answers
+      const absPath = `src/pages/${dir}`
+      return { ...answers, absPath }
+    })
   }
 }

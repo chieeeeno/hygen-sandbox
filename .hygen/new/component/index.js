@@ -3,19 +3,20 @@ module.exports = {
     const questions = [
       {
         type: 'select',
-        name: 'component_type',
+        name: 'componentType',
         message: 'コンポーネントのタイプを選択してください',
         choices: ['atoms', 'molecules', 'organisms']
       },
       {
         type: 'input',
-        name: 'component_name',
-        message: 'コンポーネントの名前を入力してください(最初は大文字にする)',
-        validate: str => /^[A-Z]/.test(str)
+        name: 'componentName',
+        message:
+          'コンポーネントの名前を入力してください(最初は大文字にしてください)',
+        validate: (str) => /^[A-Z]/.test(str)
       },
       {
         type: 'toggle',
-        name: 'is_typescript',
+        name: 'isTypescript',
         message: 'TypeScriptで作成しますか？',
         enabled: 'Yes',
         disabled: 'No',
@@ -23,7 +24,7 @@ module.exports = {
       },
       {
         type: 'toggle',
-        name: 'is_create_stories',
+        name: 'isCreateStories',
         message: 'Storybookファイルを作成しますか？',
         enabled: 'Yes',
         disabled: 'No',
@@ -32,35 +33,31 @@ module.exports = {
       {
         type: 'input',
         name: 'dir',
-        message: 'Where is the directory? (No problem in blank)',
+        message(answer) {
+          return `どのディレクトリに作成しますか？（/src/components/${answer.answers.componentType}} 以降のパスを指定してください）`
+        }
       },
-      // {
-      //   type: 'confirm',
-      //   name: 'have_style',
-      //   message: 'Is it have style?',
-      // },
-      // {
-      //   type: 'confirm',
-      //   name: 'have_props',
-      //   message: 'Is it have props?',
-      // },
-      // {
-      //   type: 'confirm',
-      //   name: 'have_hooks',
-      //   message: 'Is it have hooks?',
-      // },
+      {
+        type: 'toggle',
+        name: 'confirm',
+        message(answer) {
+          return `このディレクトリにコンポーネントを作成しますか？（/src/components/${
+            answer.answers.componentType
+          }/${answer.answers.dir ? `${answer.answers.dir}/` : ''}${
+            answer.answers.componentName
+          }）`
+        },
+        enabled: 'Yes',
+        disabled: 'No',
+        initial: 'Yes'
+      }
     ]
-    return inquirer
-      .prompt(questions)
-      .then(answers => {
-        const { component_type, component_name,is_typescript, dir, have_props } = answers
-        const path = `${component_type}/${ dir ? `${dir}/` : `` }${component_name}`
-        const abs_path = `src/components/${path}`
-        const ext = is_typescript ? 'ts' : 'js'
-        // const type_annotate = have_props ? "React.FC<Props>" : 'React.FC'
-        // const props = have_props ? '(props)' : '()'
-        // const tag = args.tag ? args.tag : 'div'
-        return { ...answers, path, abs_path, ext }
-      })
+    return inquirer.prompt(questions).then((answers) => {
+      const { componentType, componentName, isTypescript, dir } = answers
+      const path = `${componentType}/${dir ? `${dir}/` : ``}${componentName}`
+      const absPath = `src/components/${path}`
+      const ext = isTypescript ? 'ts' : 'js'
+      return { ...answers, path, absPath, ext }
+    })
   }
 }

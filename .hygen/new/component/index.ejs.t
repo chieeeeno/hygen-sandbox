@@ -1,5 +1,5 @@
 ---
-to: <%= abs_path %>/index.js
+to: <%= absPath %>/index.js
 ---
-import <%= component_name %> from './<%= component_name %>.vue'
-export default <%= component_name %>
+import <%= componentName %> from './<%= componentName %>.vue'
+export default <%= componentName %>

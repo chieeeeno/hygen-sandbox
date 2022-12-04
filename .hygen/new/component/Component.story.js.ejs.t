@@ -1,5 +1,3 @@
 ---
-to: '<%= is_create_stories ? `${abs_path}/${component_name}.story.${ext}` : null %>'
+to: '<%= isCreateStories ? `${absPath}/${componentName}.story.${ext}` : null %>'
 ---
-
-storybook

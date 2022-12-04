@@ -1,19 +1,19 @@
 ---
-to: '<%= `${abs_path}/${component_name}.vue` %>'
+to: '<%= `${absPath}/${componentName}.vue` %>'
 ---
 
 <template>
   <div></div>
 </template>
 
-<% if (is_typescript) { -%>
+<% if (isTypescript) { -%>
 <script lang="ts">
 <% } else { -%>
 <script>
 <% } -%>
 export default {
-  name: '<%= component_name %>'
-};
+  name: '<%= componentName %>'
+}
 </script>
 
 <style lang="scss" scoped>
